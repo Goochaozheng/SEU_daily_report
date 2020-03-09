@@ -29,7 +29,7 @@ def main(argv):
     options = webdriver.ChromeOptions()
     options.add_argument("headless")
     driver = webdriver.Chrome(chrome_options=options)
-    driver.get("http://ehall.seu.edu.cn/qljfwapp2/sys/lwReportEpidemicSeu/index.do?t_s=1583651212299#/dailyRepor")
+    driver.get("http://ehall.seu.edu.cn/qljfwapp2/sys/lwReportEpidemicSeu/index.do?t_s=1583651212299#/dailyReport")
 
     print("Enter login page")
     WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.ID, "username")))
@@ -42,28 +42,22 @@ def main(argv):
     for i in range(5):
         try:
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@data-action='add']")))
-            
-        except:
-            driver.refresh()
-            continue
-        break
-    print("Login successfully as %s" % userid)
+            print("Login successfully as %s" % userid)
 
-    #Wait for 
-    driver.find_element_by_xpath("//div[@data-action='add']").click()
-    for i in range(5):
-        try:
+            driver.find_element_by_xpath("//div[@data-action='add']").click()
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//p[@data-name='USER_ID']")))
             print("Add data")
+
             driver.find_element_by_xpath("//div[@data-action='save']").click()
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
             driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
+            print("Save success")
         except:
+            print("..refresh")
             driver.refresh()
             continue
         break
     
-    print("Save success")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
