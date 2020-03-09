@@ -1,8 +1,8 @@
 # SEU_daily_report
-Automated daily report for seu, based on python&selenium  
+Automated report for seu, based on python&selenium  
 Require pre-installed chrome&chromedriver
 
 ## Usage
-```
+```shell
 python daily_report.py -u <user_id> -p <password>
 ```
