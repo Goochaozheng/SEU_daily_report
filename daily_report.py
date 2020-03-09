@@ -38,17 +38,32 @@ def main(argv):
     driver.find_element_by_id("password").send_keys(password)
     driver.find_element_by_xpath("//button[@type='submit']").click()
 
-    WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@data-action='add']")))
+    #Refresh if timeout or exception
+    for i in range(5):
+        try:
+            WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@data-action='add']")))
+            
+        except:
+            driver.refresh()
+            continue
+        break
     print("Login successfully as %s" % userid)
 
+    #Wait for 
     driver.find_element_by_xpath("//div[@data-action='add']").click()
-    WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//p[@data-name='USER_ID']")))
-    print("Add data")
-
-    driver.find_element_by_xpath("//div[@data-action='save']").click()
-    WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
-    driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
-    print("Save data")
+    for i in range(5):
+        try:
+            WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//p[@data-name='USER_ID']")))
+            print("Add data")
+            driver.find_element_by_xpath("//div[@data-action='save']").click()
+            WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
+            driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
+        except:
+            driver.refresh()
+            continue
+        break
+    
+    print("Save success")
 
 if __name__ == "__main__":
     main(sys.argv[1:])
