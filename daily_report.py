@@ -45,19 +45,30 @@ def main(argv):
             print("Login successfully as %s" % userid)
 
             driver.find_element_by_xpath("//div[@data-action='add']").click()
-            WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//p[@data-name='USER_ID']")))
-            print("Add data")
+
+            try:
+                WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//p[@data-name='USER_ID']")))
+            except Exception as e:
+                if expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")):
+                    print("Already reported")
+                    sys.exit()
+                else:
+                    raise e
+            print("Adding data")
 
             driver.find_element_by_xpath("//div[@data-action='save']").click()
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
             driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
             print("Save success")
-        except:
+            sys.exit()
+
+        except Exception as e:
+            print(str(e))
             print("..refresh")
             driver.refresh()
             continue
         break
-    
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
