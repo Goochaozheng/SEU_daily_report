@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 import sys
 import getopt
+import traceback
 
 def main(argv):
 
@@ -63,7 +64,7 @@ def main(argv):
             sys.exit()
 
         except Exception as e:
-            print(str(e))
+            traceback.print_ecx()
             print("..refresh")
             driver.refresh()
             continue
