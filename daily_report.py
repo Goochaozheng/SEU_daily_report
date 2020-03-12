@@ -64,7 +64,7 @@ def main(argv):
             sys.exit()
 
         except Exception as e:
-            traceback.print_ecx()
+            traceback.print_exc()
             print("..refresh")
             driver.refresh()
             continue
