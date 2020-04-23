@@ -6,6 +6,7 @@ import sys
 import getopt
 import random
 import time
+import traceback
 
 def main(argv):
 
@@ -73,7 +74,7 @@ def main(argv):
             sys.exit()
 
         except Exception as e:
-            print(str(e))
+            traceback.print_exc()
             print("..refresh")
             driver.refresh()
             continue
