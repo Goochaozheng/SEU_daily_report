@@ -65,8 +65,10 @@ def main(argv):
             temp_input = driver.find_element_by_xpath("//input[@data-name='DZ_JSDTCJTW']")
             temp_input.send_keys(str(temp))            
             # time.sleep(30)
+            # print(temp)
+            print("Daily temperature: %s" % temp_input.get_attribute('value'))
 
-            Save data
+            # Save data
             driver.find_element_by_xpath("//div[@data-action='save']").click()
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
             driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
