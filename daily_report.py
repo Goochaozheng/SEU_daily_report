@@ -4,6 +4,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 import sys
 import getopt
+import random
+import time
 
 def main(argv):
 
@@ -44,6 +46,7 @@ def main(argv):
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@data-action='add']")))
             print("Login successfully as %s" % userid)
 
+            #Add data
             driver.find_element_by_xpath("//div[@data-action='add']").click()
 
             try:
@@ -56,6 +59,13 @@ def main(argv):
                     raise e
             print("Adding data")
 
+            #Enter daily temperature
+            temp = round(random.uniform(36, 37), 1)
+            temp_input = driver.find_element_by_xpath("//input[@data-name='DZ_JSDTCJTW']")
+            temp_input.send_keys(str(temp))            
+            # time.sleep(30)
+
+            Save data
             driver.find_element_by_xpath("//div[@data-action='save']").click()
             WebDriverWait(driver, 60, 1).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']")))
             driver.find_element_by_xpath("//a[@class='bh-dialog-btn bh-bg-primary bh-color-primary-5']").click()
