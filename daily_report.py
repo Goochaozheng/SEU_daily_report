@@ -66,10 +66,7 @@ def main(argv):
             driver.execute_script("arguments[0].value = arguments[1];", temp_input, str(temp))
             # temp_input.send_keys(str(temp))            
             # time.sleep(30)
-            # print(temp)
             print("Daily temperature: %s" % temp_input.get_attribute('value'))
-            # driver.execute_script("document.getElementById('...').setAttribute('value', 'SM37')")
-            exit()
 
             # Save data
             driver.find_element_by_xpath("//div[@data-action='save']").click()
